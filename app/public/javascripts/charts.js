@@ -1,10 +1,9 @@
 var ctx;
 
 $(document).ready(function() {
-    ctx = $('#chart');
+    ctx = document.querySelector('#chart').getContext('2d');
 })
 
-ctx = document.getElementById('chart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
