@@ -13,6 +13,7 @@
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "node_module": "0.0.0",
     "nodemon": "^2.0.4"
   }
 }
