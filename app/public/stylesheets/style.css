@@ -3,3 +3,7 @@
   width: 50rem;
   margin: auto;
 }
+
+.material-icons {
+  vertical-align: top;
+}

@@ -1,18 +1,43 @@
-<script>
-    function notReady() {
-        alert("Feature not ready yet");
-    }
-</script>
-
 <div class="container">
-    <h1>Test</h1>
-
-    <p>Upload test data for model</p>
-
-    <form action="test" method="post">
-        <input type="file" name="" id="">
-    </form>
     <br>
-    <button class="btn btn-danger" onclick="notReady()">Start testing</button>
+    <h1>Test</h1>
+    <h4>Control panel to test the machine learning model</h4>
+
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5 class="card-title">Upload new dataset for testing the model</h5>
+                    <br>
+                    <form action="test/upload" method="post" enctype="multipart/form-data">
+                        <input class="btn btn-light" type="file" name="file">
+                        <br><br>
+                        <input type="submit" value="Upload" class="btn btn-warning">
+                    </form>
+                </div>
+                <div style="border-left: solid 1px #eee;" class="col">
+                    <h5 class="card-title">Progress</h5>
+
+                    <p>
+                        {{# if datasetExists }}
+                            <a class="text-success">
+                                <span class="material-icons">check</span>
+                                Testing dataset exists
+                            </a>
+                        {{else}}
+                            <a class="text-danger">
+                                <span class="material-icons">error</span>
+                                Testing dataset doesn't exist
+                            </a>
+                        {{/if}}
+                        <br>
+                        <span class="text-muted">Last tested: a week ago</span>
+                    </p>
+                </div>
+            </div>       
+        </div>
+    </div>
+    <br>
 
 </div>

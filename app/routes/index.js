@@ -15,17 +15,42 @@ router.get('/apm', function(req, res, next) {
 });
 
 router.get('/test', function(req, res, next) {
-  res.render('test');
+  let datasetExists = false;
+
+  if(fs.existsSync(path.join(__dirname, '..', 'public', 'uploads', 'test.txt'))) {
+    datasetExists = true;
+  }
+  res.render('test', { datasetExists });
 });
 
-router.get('/train', function(req, res, next) {
-  res.render('train');
-});
-
-router.post('/train', function(req, res, next) {
+router.post('/test/upload', function(req, res, next) {
   let busboy = new Busboy({ headers: req.headers });
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-    let filePath = path.join(__dirname, '..', 'public', 'uploads', filename);
+    let filePath = path.join(__dirname, '..', 'public', 'uploads', 'test.txt');
+    
+    file.pipe(fs.createWriteStream(filePath));
+  });
+
+  busboy.on('finish', function() {
+    res.send('done uploading');
+  });
+
+  return req.pipe(busboy);
+})
+
+router.get('/train', function(req, res, next) {
+  let datasetExists = false;
+
+  if(fs.existsSync(path.join(__dirname, '..', 'public', 'uploads', 'train.txt'))) {
+    datasetExists = true;
+  }
+  res.render('train', { datasetExists });
+});
+
+router.post('/train/upload', function(req, res, next) {
+  let busboy = new Busboy({ headers: req.headers });
+  busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+    let filePath = path.join(__dirname, '..', 'public', 'uploads', 'train.txt');
     
     file.pipe(fs.createWriteStream(filePath));
   });
