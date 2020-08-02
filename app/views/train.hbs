@@ -17,7 +17,7 @@
                     </form>
                 </div>
                 <div style="border-left: solid 1px #eee;" class="col">
-                    <h5 class="card-title">Progress</h5>
+                    <h5>Dataset</h5>
 
                     <p>
                         {{# if datasetExists }}
@@ -32,8 +32,20 @@
                             </a>
                         {{/if}}
                         <br>
-                        <span class="text-muted">Last trained: a week ago</span>
+                        <span class="text-muted">
+                            <span class="material-icons">schedule</span>
+                            Last updated: a week ago
+                        </span>
                     </p>
+
+                    <hr>
+
+                    <h5>Model</h5>
+                    <a>Accuracy: 89.75%</a><br>
+                    <span class="text-muted">
+                        <span class="material-icons">schedule</span>
+                        Last trained: a week ago
+                    </span>
                 </div>
             </div>       
         </div>
