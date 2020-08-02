@@ -9,10 +9,10 @@
 
     <p>Upload data to start training of model</p>
 
-    <form action="test" method="post">
-        <input type="file" name="" id="">
+    <form action="train" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Start training" class="btn btn-primary">
     </form>
     <br>
-    <button class="btn btn-success" onclick="notReady()">Start training</button>
 
 </div>
