@@ -71,6 +71,21 @@ router.post('/train/run',function(req,res,next) {
                 console.log(`exec error: ${error}`);
             }
         });
+  
+  res.redirect('/train');
+})
+
+router.post('/test/run',function(req,res,next) {
+  var process = exec('python3 mlscripts/test.py public/uploads/test.txt',
+        (error, stdout, stderr) => {
+            console.log(stdout);
+            console.log(stderr);
+            if (error !== null) {
+                console.log(`exec error: ${error}`);
+            }
+        });
+  
+  res.redirect('/test');
 })
 
 module.exports = router;
