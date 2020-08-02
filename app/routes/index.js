@@ -26,16 +26,12 @@ router.post('/train', function(req, res, next) {
   let busboy = new Busboy({ headers: req.headers });
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
     let filePath = path.join(__dirname, '..', 'public', 'uploads', filename);
-
-    // start writing to file once it is created
-    fs.writeFile(filePath, function() {
-      file.pipe(fs.createWriteStream(filePath));
-    });
+    
+    file.pipe(fs.createWriteStream(filePath));
   });
 
   busboy.on('finish', function() {
-    res.writeHead(200, { 'Connection': 'close' });
-    res.end("That's all folks!");
+    res.send('done uploading');
   });
 
   return req.pipe(busboy);
