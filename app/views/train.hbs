@@ -24,7 +24,10 @@
                             <a class="text-success">
                                 <span class="material-icons">check</span>
                                 Training dataset exists
-                            </a>
+                            </a>    
+                            <form action="train/run" method="post" enctype="multipart/form-data">
+                                <input type="submit" value="Train" class="btn btn-primary">
+                            </form>
                         {{else}}
                             <a class="text-danger">
                                 <span class="material-icons">error</span>

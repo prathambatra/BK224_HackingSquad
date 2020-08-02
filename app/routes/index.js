@@ -2,6 +2,7 @@ const express = require('express');
 const Busboy = require('busboy')
 const path = require('path');
 const fs = require('fs');
+const {exec} = require("child_process")
 
 var router = express.Router();
 
@@ -51,8 +52,7 @@ router.post('/train/upload', function(req, res, next) {
   let busboy = new Busboy({ headers: req.headers });
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
     let filePath = path.join(__dirname, '..', 'public', 'uploads', 'train.txt');
-    
-    file.pipe(fs.createWriteStream(filePath));
+    file.pipe(fs.createWriteStream(filePath)); 
   });
 
   busboy.on('finish', function() {
@@ -60,6 +60,17 @@ router.post('/train/upload', function(req, res, next) {
   });
 
   return req.pipe(busboy);
+})
+
+router.post('/train/run',function(req,res,next) {
+  var process = exec('python ../mlscripts/train.py',
+        (error, stdout, stderr) => {
+            console.log(stdout);
+            console.log(stderr);
+            if (error !== null) {
+                console.log(`exec error: ${error}`);
+            }
+        });
 })
 
 module.exports = router;
