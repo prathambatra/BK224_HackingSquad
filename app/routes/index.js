@@ -32,7 +32,7 @@ router.post('/test/upload', function(req, res, next) {
   });
 
   busboy.on('finish', function() {
-    res.send('done uploading');
+    res.redirect('/test');
   });
 
   return req.pipe(busboy);
@@ -56,7 +56,7 @@ router.post('/train/upload', function(req, res, next) {
   });
 
   busboy.on('finish', function() {
-    res.send('done uploading');
+    res.redirect('/train');
   });
 
   return req.pipe(busboy);
