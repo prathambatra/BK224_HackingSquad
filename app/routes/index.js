@@ -63,7 +63,7 @@ router.post('/train/upload', function(req, res, next) {
 })
 
 router.post('/train/run',function(req,res,next) {
-  var process = exec('python ../mlscripts/train.py ../public/uploads/train.txt',
+  var process = exec('python3 mlscripts/train.py public/uploads/train.txt',
         (error, stdout, stderr) => {
             console.log(stdout);
             console.log(stderr);
