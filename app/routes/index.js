@@ -10,4 +10,12 @@ router.get('/apm', function(req, res, next) {
   res.render('apm');
 });
 
+router.get('/test', function(req, res, next) {
+  res.render('test');
+});
+
+router.get('/train', function(req, res, next) {
+  res.render('train');
+});
+
 module.exports = router;
