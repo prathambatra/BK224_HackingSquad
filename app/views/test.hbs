@@ -4,9 +4,13 @@ $(document).ready(function() {
     var modelData = [{{modelOutput}}]
     var labels = []
     var day = 1;
+    var thresholdData = [];
+
     modelData.forEach(function(point) {
         labels.push(day);
         day += 1;
+
+        thresholdData.push(0.9);
     })
 
     ctx = document.querySelector('#test-chart').getContext('2d');
@@ -21,6 +25,12 @@ $(document).ready(function() {
                 borderColor: 'rgb(28, 237, 137)',
                 backgroundColor: 'rgba(28, 237, 137, 0.3)',
                 data: modelData,
+            }, {
+                label: 'Threshold',
+                fill: false,
+                borderColor: 'red',
+                borderDash: [5, 5],
+                data: thresholdData,
             }],
         }
     });
