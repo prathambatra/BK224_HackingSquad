@@ -15,6 +15,11 @@
   background-color:#2b2b2b;
 }
 
+#team .img-fluid {
+  width: 15rem;
+  border-radius: 1rem;
+}
+
 .footer-dark h3 {
   margin-top:0;
   margin-bottom:12px;
