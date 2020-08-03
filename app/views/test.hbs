@@ -87,6 +87,13 @@ $(document).ready(function() {
                 <span class="material-icons">schedule</span>
                 Last tested: {{lastTested}}
             </span><br><br>
+
+            {{# if alertDays}}
+                <div class="alert alert-danger" role="alert">
+                    <span class="material-icons">error</span>
+                    Heat transfer coefficient below threshold on the following days: <strong>{{alertDays}}</strong>
+                </div>
+            {{/if}}
             
             <canvas id="test-chart"></canvas>
         </div>
