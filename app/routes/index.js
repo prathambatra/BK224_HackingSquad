@@ -33,7 +33,7 @@ router.get('/dashboard', async function(req, res, next) {
       hi_temp = [],
       ho_temp = [],
       density = [],
-      ht_coeff = [];
+      ht_coeff = configService.get('modelOutput');
 
   let csv;
   fs.readFile(path.join(__dirname, '..', 'public', 'uploads', 'test.txt'), async (err, data) => {
@@ -53,7 +53,7 @@ router.get('/dashboard', async function(req, res, next) {
       hi_temp.push(+object['hi_temp']);
       ho_temp.push(+object['ho_temp']);
       density.push(+object['Density']);
-      ht_coeff.push(+object['HT_Coefficient']);
+      // ht_coeff.push(+object['HT_Coefficient']);
     });
   });
 
