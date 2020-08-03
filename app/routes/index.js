@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const {exec} = require("child_process");
 const configService = require('../services/config');
+const moment = require('moment');
 
 var router = express.Router();
 
@@ -18,11 +19,15 @@ router.get('/apm', function(req, res, next) {
 
 router.get('/test', function(req, res, next) {
   let datasetExists = false;
-
-  if(fs.existsSync(path.join(__dirname, '..', 'public', 'uploads', 'test.txt'))) {
+  if (fs.existsSync(path.join(__dirname, '..', 'public', 'uploads', 'test.txt'))) {
     datasetExists = true;
   }
-  res.render('test', { datasetExists });
+
+  let modelOutput = configService.get('modelOutput');
+  let lastTested = configService.get('lastTested');
+  lastTested = moment(lastTested).fromNow();
+
+  res.render('test', { datasetExists, modelOutput, lastTested });
 });
 
 router.post('/test/upload', function(req, res, next) {
@@ -42,24 +47,30 @@ router.post('/test/upload', function(req, res, next) {
 
 router.get('/train', function(req, res, next) {
   let datasetExists = false;
-
   if(fs.existsSync(path.join(__dirname, '..', 'public', 'uploads', 'train.txt'))) {
     datasetExists = true;
   }
-  res.render('train', { datasetExists, accuracy: configService.get('accuracy')*100 });
+
+  let accuracy = (+configService.get('accuracy')*100).toFixed(2);
+  let lastTrained = configService.get('lastTrained');
+  lastTrained = moment(lastTrained).fromNow();
+  
+  res.render('train', { datasetExists, accuracy, lastTrained });
 });
 
+// upload training data
 router.post('/train/upload', function(req, res, next) {
+  
   let busboy = new Busboy({ headers: req.headers });
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
     let filePath = path.join(__dirname, '..', 'public', 'uploads', 'train.txt');
     file.pipe(fs.createWriteStream(filePath)); 
   });
-
+  
   busboy.on('finish', function() {
     res.redirect('/train');
   });
-
+  
   return req.pipe(busboy);
 })
 
@@ -67,11 +78,14 @@ router.post('/train/run',function(req, res, next) {
   let accuracy;
   exec('python3 mlscripts/train.py public/uploads/train.txt',
   (error, stdout, stderr) => {
+    if (stdout) { 
       configService.set('accuracy', stdout);
-      console.log(stderr);
-      if (error !== null) {
-          console.log(`exec error: ${error}`);
-      }
+      configService.set('lastTrained', moment().format());
+    }
+    // console.log(stderr);
+    if (error !== null) {
+        console.log(`exec error: ${error}`);
+    }
   });
   
   res.redirect('/train');
@@ -80,7 +94,10 @@ router.post('/train/run',function(req, res, next) {
 router.post('/test/run',function(req,res,next) {
   var process = exec('python3 mlscripts/test.py public/uploads/test.txt',
         (error, stdout, stderr) => {
-            console.log(stdout);
+          if (stdout) { 
+            configService.set('modelOutput', stdout);
+            configService.set('lastTested', moment().format());
+          }
             console.log(stderr);
             if (error !== null) {
                 console.log(`exec error: ${error}`);

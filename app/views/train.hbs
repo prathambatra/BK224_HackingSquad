@@ -34,20 +34,17 @@
                                 Training dataset doesn't exist
                             </a>
                         {{/if}}
-                        <br>
-                        <span class="text-muted">
-                            <span class="material-icons">schedule</span>
-                            Last updated: a week ago
-                        </span>
                     </p>
 
                     <hr>
 
                     <h5>Model</h5>
-                    <a>Accuracy: {{accuracy}}</a><br>
+                    <br>
+                    <a>Accuracy:</a><br>
+                    <h1 class="font-weight-lighter">{{accuracy}}%</h1>
                     <span class="text-muted">
                         <span class="material-icons">schedule</span>
-                        Last trained: a week ago
+                        Last trained: {{lastTrained}}
                     </span>
                 </div>
             </div>       
