@@ -17,6 +17,10 @@ router.get('/apm', function(req, res, next) {
   res.render('apm');
 });
 
+router.get('/dashboard', function(req, res, next) {
+  res.render('dashboard');
+});
+
 router.get('/test', function(req, res, next) {
   let datasetExists = false;
   if (fs.existsSync(path.join(__dirname, '..', 'public', 'uploads', 'test.txt'))) {
