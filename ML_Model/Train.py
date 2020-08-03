@@ -5,9 +5,10 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 import pickle
+import sys
 
 val=sys.argv()
-path=val[0]
+path=val[1]
 data=pd.read_csv(path)
 data=np.array(data)
 X=data[:,0:10]

@@ -1,0 +1,19 @@
+{
+  "name": "bk224_hackingsquad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prathambatra/BK224_HackingSquad.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prathambatra/BK224_HackingSquad/issues"
+  },
+  "homepage": "https://github.com/prathambatra/BK224_HackingSquad#readme"
+}
