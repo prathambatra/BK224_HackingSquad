@@ -13,6 +13,7 @@ exports.set = function(key, value) {
 
     try {
         fs.writeFileSync('config.json', JSON.stringify(config));
+        console.log(`Wrote ${key}:${value} to config`);
     } catch (error) {
         console.log(error);
     }
