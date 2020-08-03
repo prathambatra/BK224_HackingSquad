@@ -23,15 +23,24 @@ router.get('/dashboard', function(req, res, next) {
 
 router.get('/test', function(req, res, next) {
   let datasetExists = false;
+  let alertDays = [];
+
   if (fs.existsSync(path.join(__dirname, '..', 'public', 'uploads', 'test.txt'))) {
     datasetExists = true;
   }
 
-  let modelOutput = configService.get('modelOutput');
+  let modelOutput = JSON.parse(configService.get('modelOutput'));
+  let day = 1;
+  modelOutput.forEach(function(value) {
+    if(value < 0.9) {
+      alertDays.push(day);
+    }
+    day += 1;
+  })
   let lastTested = configService.get('lastTested');
   lastTested = moment(lastTested).fromNow();
 
-  res.render('test', { datasetExists, modelOutput, lastTested });
+  res.render('test', { datasetExists, modelOutput, lastTested, alertDays });
 });
 
 router.post('/test/upload', function(req, res, next) {

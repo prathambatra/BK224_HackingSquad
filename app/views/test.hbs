@@ -1,3 +1,42 @@
+<script>
+var ctx;
+$(document).ready(function() {
+    var modelData = [{{modelOutput}}]
+    var labels = []
+    var day = 1;
+    var thresholdData = [];
+
+    modelData.forEach(function(point) {
+        labels.push(day);
+        day += 1;
+
+        thresholdData.push(0.9);
+    })
+
+    ctx = document.querySelector('#test-chart').getContext('2d');
+    var testLineChart = new Chart(ctx, {
+        type: 'line',
+
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Heat transfer coefficient',
+                fill: true,
+                borderColor: 'rgb(28, 237, 137)',
+                backgroundColor: 'rgba(28, 237, 137, 0.3)',
+                data: modelData,
+            }, {
+                label: 'Threshold',
+                fill: false,
+                borderColor: 'red',
+                borderDash: [5, 5],
+                data: thresholdData,
+            }],
+        }
+    });
+})
+</script>
+
 <div class="container">
     <br>
     <h1>Test</h1>
@@ -35,19 +74,29 @@
                             </a>
                         {{/if}}
                     </p>
-
-                    <hr>
-
-                    <h5>Model</h5>
-                    <a>Output: {{modelOutput}}</a><br>
-                    <span class="text-muted">
-                        <span class="material-icons">schedule</span>
-                        Last tested: {{lastTested}}
-                    </span>
                 </div>
             </div>       
         </div>
     </div>
     <br>
+
+    <div class="card">
+        <div class="card-body">
+            <h5>Model</h5>
+            <span class="text-muted">
+                <span class="material-icons">schedule</span>
+                Last tested: {{lastTested}}
+            </span><br><br>
+
+            {{# if alertDays}}
+                <div class="alert alert-danger" role="alert">
+                    <span class="material-icons">error</span>
+                    Heat transfer coefficient below threshold on the following days: <strong>{{alertDays}}</strong>
+                </div>
+            {{/if}}
+            
+            <canvas id="test-chart"></canvas>
+        </div>
+    </div>
 
 </div>

@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 import os
 import sys
+import json
 
 model = pickle.load(open(os.path.join('mlscripts', 'Model.pkl'), 'rb'))
 
@@ -11,4 +12,4 @@ data=pd.read_csv(path)
 data=np.array(data)
 X=data[:,0:10]
 pred=model.predict(X)
-print(pred)
+print(json.dumps(list(pred)))
