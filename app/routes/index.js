@@ -5,6 +5,7 @@ const fs = require('fs');
 const {exec} = require("child_process");
 const configService = require('../services/config');
 const moment = require('moment');
+const neatCsv = require('neat-csv');
 
 var router = express.Router();
 
@@ -17,8 +18,55 @@ router.get('/apm', function(req, res, next) {
   res.render('apm');
 });
 
-router.get('/dashboard', function(req, res, next) {
-  res.render('dashboard');
+router.get('/dashboard', async function(req, res, next) {
+  let flow_rate = [],
+      pressure_ci = [],
+      pressure_hi = [],
+      coldfluid_pd = [],
+      hotfluid_pd = [],
+      ci_temp = [],
+      co_temp = [],
+      hi_temp = [],
+      ho_temp = [],
+      density = [],
+      ht_coeff = [];
+
+  let csv;
+  fs.readFile(path.join(__dirname, '..', 'public', 'uploads', 'test.txt'), async (err, data) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    csv = await neatCsv(data);
+    csv.forEach(function(object) {
+      flow_rate.push(+object['flow_rate(l/min)']);
+      pressure_ci.push(+object['Pressure_ci']);
+      pressure_hi.push(+object['Pressure_hi']);
+      coldfluid_pd.push(+object['coldfluid_Pd']);
+      hotfluid_pd.push(+object['hotfluid_Pd']);
+      ci_temp.push(+object['Ci_temp']);
+      co_temp.push(+object['co_temp']);
+      hi_temp.push(+object['hi_temp']);
+      ho_temp.push(+object['ho_temp']);
+      density.push(+object['Density']);
+      ht_coeff.push(+object['HT_Coefficient']);
+    });
+  });
+
+
+  res.render('dashboard', {
+    flow_rate,
+    pressure_ci,
+    pressure_hi,
+    coldfluid_pd,
+    hotfluid_pd,
+    ci_temp,
+    co_temp,
+    hi_temp,
+    ho_temp,
+    density,
+    ht_coeff
+  });
 });
 
 router.get('/test', function(req, res, next) {

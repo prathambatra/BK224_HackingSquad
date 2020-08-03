@@ -1,4 +1,4 @@
-flow rate(l/min),Pressure_ci,Pressure_hi,coldfluid_Pd,hotfluid_Pd,Ci_temp,co_temp,hi_temp,ho_temp,Density,HT_Coefficient
+flow_rate(l/min),Pressure_ci,Pressure_hi,coldfluid_Pd,hotfluid_Pd,Ci_temp,co_temp,hi_temp,ho_temp,Density,HT_Coefficient
 664.0, 0.3284, 0.2684, 40.84, 35.84, 314.02, 360.6, 368.58, 317.94, 912.14, 0.9299999999999995
 666.0, 0.3096, 0.2696, 36.96, 32.96, 311.66, 360.55, 368.29, 316.19, 913.16, 0.9284858464914172
 669.0, 0.3114, 0.2714, 37.14, 33.14, 311.63, 360.52, 368.26, 316.16, 913.19, 0.9270541251915547

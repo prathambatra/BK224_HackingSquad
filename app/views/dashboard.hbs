@@ -1,4 +1,103 @@
-<div class="container">
-    <h4>Dashboard For Plotting Charts</h4>
+<script>
+var ctx;
+$(document).ready(function() {
+    var labels = []
+    var thresholdData = [];
 
+    for(i = 0; i < 30; i++) {
+        labels.push(i+1);
+    }
+
+    ctx = document.querySelector('#test-chart').getContext('2d');
+    var testLineChart = new Chart(ctx, {
+        type: 'line',
+
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Flow Rate',
+                fill: false,
+                visible: false,
+                borderColor: 'red',
+                data: [{{flow_rate}}],
+            },
+            {
+                label: 'Pressure Ci',
+                fill: false,
+                borderColor: 'blue',
+                data: [{{pressure_ci}}],
+            },
+            {
+                label: 'Pressure Hi',
+                fill: false,
+                borderColor: 'cyan',
+                data: [{{pressure_hi}}],
+            },
+            {
+                label: 'Coldfluid Pd',
+                fill: false,
+                borderColor: 'orange',
+                data: [{{coldfluid_pd}}],
+            },
+            {
+                label: 'Hotfluid Pd',
+                fill: false,
+                borderColor: 'pink',
+                data: [{{hotfluid_pd}}],
+            },
+            {
+                label: 'Ci temp',
+                fill: false,
+                borderColor: 'magenta',
+                data: [{{ci_temp}}],
+            },
+            {
+                label: 'Co temp',
+                fill: false,
+                borderColor: 'green',
+                data: [{{co_temp}}],
+            },
+            {
+                label: 'Hi temp',
+                fill: false,
+                borderColor: 'yellow',
+                data: [{{hi_temp}}],
+            },
+            {
+                label: 'Ho temp',
+                fill: false,
+                borderColor: 'black',
+                data: [{{ho_temp}}],
+            },
+            {
+                label: 'Density',
+                fill: false,
+                borderColor: 'indigo',
+                data: [{{density}}],
+            },
+            {
+                label: 'HT Coefficient',
+                fill: false,
+                borderColor: 'grey',
+                data: [{{ht_coeff}}],
+            },],
+        }
+    });
+})
+</script>
+
+<div class="container">
+    <br>
+    <h1>Dashboard</h1>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <span class="text-muted">
+                <span class="material-icons">schedule</span>
+                Click on the legend to toggle graph
+            </span><br><br>
+            <canvas id="test-chart"></canvas>
+        </div>
+    </div>
 </div>
+<br><br>
