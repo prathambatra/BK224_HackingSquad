@@ -23,7 +23,7 @@ router.get('/test', function(req, res, next) {
     datasetExists = true;
   }
 
-  let modelOutput = configService.get('modelOutput');
+  let modelOutput = JSON.parse(configService.get('modelOutput'));
   let lastTested = configService.get('lastTested');
   lastTested = moment(lastTested).fromNow();
 
