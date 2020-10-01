@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 import pickle
 import sys
+import matplotlib as plt
 
 val=sys.argv()
 path=val[1]
